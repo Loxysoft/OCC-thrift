@@ -70,7 +70,6 @@ thrift_SOURCES += src/generate/t_c_glib_generator.cc \
                   src/generate/t_as3_generator.cc \
                   src/generate/t_csharp_generator.cc \
                   src/generate/t_py_generator.cc \
-                  src/generate/t_rb_generator.cc \
                   src/generate/t_perl_generator.cc \
                   src/generate/t_php_generator.cc \
                   src/generate/t_erl_generator.cc \
