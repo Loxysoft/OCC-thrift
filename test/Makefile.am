@@ -28,10 +28,6 @@ SUBDIRS += py
 SUBDIRS += py.twisted
 endif
 
-if WITH_RUBY
-SUBDIRS += rb
-endif
-
 if WITH_HASKELL
 SUBDIRS += hs
 endif
@@ -46,7 +42,6 @@ EXTRA_DIST = \
 	php \
 	py \
 	py.twisted \
-	rb \
 	threads \
 	AnnotationTest.thrift \
 	BrokenConstants.thrift \

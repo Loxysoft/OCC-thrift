@@ -24,7 +24,6 @@
 namespace c_glib TTest
 namespace java thrift.test
 namespace cpp thrift.test
-namespace rb Thrift.Test
 namespace perl ThriftTest
 namespace csharp Thrift.Test
 namespace js ThriftTest
