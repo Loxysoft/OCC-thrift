@@ -17,47 +17,32 @@
 # under the License.
 #
 
-SUBDIRS =
+require File.join(File.dirname(__FILE__), '../test_helper')
+require 'small_service'
 
-if WITH_CPP
-SUBDIRS += cpp
-endif
+class TestStructGeneration < Test::Unit::TestCase
 
-if WITH_PYTHON
-SUBDIRS += py
-SUBDIRS += py.twisted
-endif
+  def test_default_values
+    hello = TestNamespace::Hello.new
 
-if WITH_RUBY
-SUBDIRS += rb
-endif
+    assert_kind_of(TestNamespace::Hello, hello)
+    assert_nil(hello.complexer)
 
-if WITH_HASKELL
-SUBDIRS += hs
-endif
+    assert_equal(hello.simple, 53)
+    assert_equal(hello.words, 'words')
 
-EXTRA_DIST = \
-	cpp \
-	csharp \
-	erl \
-	hs \
-	ocaml \
-	perl \
-	php \
-	py \
-	py.twisted \
-	rb \
-	threads \
-	AnnotationTest.thrift \
-	BrokenConstants.thrift \
-	ConstantsDemo.thrift \
-	DebugProtoTest.thrift \
-	DenseLinkingTest.thrift \
-	DocTest.thrift \
-	JavaBeansTest.thrift \
-	ManyTypedefs.thrift \
-	OptionalRequiredTest.thrift \
-	SmallTest.thrift \
-	StressTest.thrift \
-	ThriftTest.thrift \
-	FastbinaryTest.py
+    assert_kind_of(TestNamespace::Goodbyez, hello.thinz)
+    assert_equal(hello.thinz.val, 36632)
+
+    assert_kind_of(Hash, hello.complex)
+    assert_equal(hello.complex, { 6243 => 632, 2355 => 532, 23 => 532})
+    
+    bool_passer = TestNamespace::BoolPasser.new(:value => false)
+    assert_equal false, bool_passer.value
+  end
+
+  def test_goodbyez
+    assert_equal(TestNamespace::Goodbyez.new.val, 325)
+  end
+
+end

@@ -17,47 +17,4 @@
 # under the License.
 #
 
-SUBDIRS =
-
-if WITH_CPP
-SUBDIRS += cpp
-endif
-
-if WITH_PYTHON
-SUBDIRS += py
-SUBDIRS += py.twisted
-endif
-
-if WITH_RUBY
-SUBDIRS += rb
-endif
-
-if WITH_HASKELL
-SUBDIRS += hs
-endif
-
-EXTRA_DIST = \
-	cpp \
-	csharp \
-	erl \
-	hs \
-	ocaml \
-	perl \
-	php \
-	py \
-	py.twisted \
-	rb \
-	threads \
-	AnnotationTest.thrift \
-	BrokenConstants.thrift \
-	ConstantsDemo.thrift \
-	DebugProtoTest.thrift \
-	DenseLinkingTest.thrift \
-	DocTest.thrift \
-	JavaBeansTest.thrift \
-	ManyTypedefs.thrift \
-	OptionalRequiredTest.thrift \
-	SmallTest.thrift \
-	StressTest.thrift \
-	ThriftTest.thrift \
-	FastbinaryTest.py
+Dir["{core,generation}/**/*.rb"].each {|f| require f }

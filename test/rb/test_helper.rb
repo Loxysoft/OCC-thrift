@@ -17,47 +17,19 @@
 # under the License.
 #
 
-SUBDIRS =
+$:.unshift File.dirname(__FILE__) + '/gen-rb'
+$:.unshift File.join(File.dirname(__FILE__), '../../lib/rb/lib')
+$:.unshift File.join(File.dirname(__FILE__), '../../lib/rb/ext')
 
-if WITH_CPP
-SUBDIRS += cpp
-endif
+require 'test/unit'
 
-if WITH_PYTHON
-SUBDIRS += py
-SUBDIRS += py.twisted
-endif
-
-if WITH_RUBY
-SUBDIRS += rb
-endif
-
-if WITH_HASKELL
-SUBDIRS += hs
-endif
-
-EXTRA_DIST = \
-	cpp \
-	csharp \
-	erl \
-	hs \
-	ocaml \
-	perl \
-	php \
-	py \
-	py.twisted \
-	rb \
-	threads \
-	AnnotationTest.thrift \
-	BrokenConstants.thrift \
-	ConstantsDemo.thrift \
-	DebugProtoTest.thrift \
-	DenseLinkingTest.thrift \
-	DocTest.thrift \
-	JavaBeansTest.thrift \
-	ManyTypedefs.thrift \
-	OptionalRequiredTest.thrift \
-	SmallTest.thrift \
-	StressTest.thrift \
-	ThriftTest.thrift \
-	FastbinaryTest.py
+module Thrift
+  module Struct
+    def ==(other)
+      return false unless other.is_a? self.class
+      self.class.const_get(:FIELDS).collect {|fid, data| data[:name] }.all? do |field|
+        send(field) == other.send(field)
+      end
+    end
+  end
+end

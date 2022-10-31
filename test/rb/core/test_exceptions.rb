@@ -17,47 +17,14 @@
 # under the License.
 #
 
-SUBDIRS =
+require File.join(File.dirname(__FILE__), '../test_helper')
 
-if WITH_CPP
-SUBDIRS += cpp
-endif
+require 'thrift'
 
-if WITH_PYTHON
-SUBDIRS += py
-SUBDIRS += py.twisted
-endif
+class TestException < Test::Unit::TestCase
+  def test_has_accessible_message
+    msg = "hi there thrift"
+    assert_equal msg, Thrift::Exception.new(msg).message
+  end
+end
 
-if WITH_RUBY
-SUBDIRS += rb
-endif
-
-if WITH_HASKELL
-SUBDIRS += hs
-endif
-
-EXTRA_DIST = \
-	cpp \
-	csharp \
-	erl \
-	hs \
-	ocaml \
-	perl \
-	php \
-	py \
-	py.twisted \
-	rb \
-	threads \
-	AnnotationTest.thrift \
-	BrokenConstants.thrift \
-	ConstantsDemo.thrift \
-	DebugProtoTest.thrift \
-	DenseLinkingTest.thrift \
-	DocTest.thrift \
-	JavaBeansTest.thrift \
-	ManyTypedefs.thrift \
-	OptionalRequiredTest.thrift \
-	SmallTest.thrift \
-	StressTest.thrift \
-	ThriftTest.thrift \
-	FastbinaryTest.py

@@ -17,47 +17,18 @@
 # under the License.
 #
 
-SUBDIRS =
+require File.join(File.dirname(__FILE__), '../test_helper')
+require 'thrift_test'
 
-if WITH_CPP
-SUBDIRS += cpp
-endif
-
-if WITH_PYTHON
-SUBDIRS += py
-SUBDIRS += py.twisted
-endif
-
-if WITH_RUBY
-SUBDIRS += rb
-endif
-
-if WITH_HASKELL
-SUBDIRS += hs
-endif
-
-EXTRA_DIST = \
-	cpp \
-	csharp \
-	erl \
-	hs \
-	ocaml \
-	perl \
-	php \
-	py \
-	py.twisted \
-	rb \
-	threads \
-	AnnotationTest.thrift \
-	BrokenConstants.thrift \
-	ConstantsDemo.thrift \
-	DebugProtoTest.thrift \
-	DenseLinkingTest.thrift \
-	DocTest.thrift \
-	JavaBeansTest.thrift \
-	ManyTypedefs.thrift \
-	OptionalRequiredTest.thrift \
-	SmallTest.thrift \
-	StressTest.thrift \
-	ThriftTest.thrift \
-	FastbinaryTest.py
+class TestEnumGeneration < Test::Unit::TestCase
+  include Thrift::Test
+  def test_enum_valid_values
+    assert_equal(Numberz::VALID_VALUES, Set.new([Numberz::ONE, Numberz::TWO, Numberz::THREE, Numberz::FIVE, Numberz::SIX, Numberz::EIGHT]))
+  end
+  
+  def test_enum_hash
+    Numberz::VALID_VALUES.each do |value|
+      assert_equal(Numberz.const_get(Numberz::VALUE_MAP[value].to_sym), value)
+    end
+  end
+end
